@@ -9,8 +9,8 @@ public class CorsConf implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("https://comparador-front-seven.vercel.app/")
-                .allowedOrigins("*")
+        registry.addMapping("/**")
+                .allowedOrigins("https://comparador-front-seven.vercel.app/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
