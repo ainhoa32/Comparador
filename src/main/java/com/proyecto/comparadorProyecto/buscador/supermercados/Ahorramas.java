@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -56,9 +57,10 @@ public class Ahorramas implements Supermercado {
         String nombreProducto = producto.select("h2.product-name-gtm").text();
         int index = Integer.parseInt(producto.select("div.product-tile").attr("data-index"));
         Double precio = Double.parseDouble(producto.select("div.add-to-cart").attr("data-price"));
-        String precioGranelString = producto.select("span.unit-price-per-unit").text();
-        Double precioGranel = Double.parseDouble(precioGranelString.substring(1, precioGranelString.indexOf('€')).replace(",", "."));
-        String unidadMedida = precioGranelString.substring(precioGranelString.indexOf("/") + 1, precioGranelString.indexOf(')'));
+        String [] preciosGranel = producto.select("span.unit-price-per-unit").text().split(" ");
+        String precioGranelString = preciosGranel[preciosGranel.length-1];
+        Double precioGranel = Double.parseDouble(precioGranelString.substring(0, precioGranelString.indexOf('€')).replace(",", "."));
+        String unidadMedida = precioGranelString.substring(precioGranelString.indexOf("/") + 1);
         String unidadMedidaAbrev = unidadMedida.equals("LITRO") ? "l" : "kg";
         String urlImagen = producto.select("img.tile-image").attr("src");
         int prioridad = calculadorPrioridad.calcularSegunCategorias(obtenerCategorias(producto), categoriasPrioritarias);

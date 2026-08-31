@@ -95,20 +95,23 @@ public class Carrefour implements Supermercado {
     public ProductoDto mapearProducto(Producto producto, int index) {
         double precio = producto.getPrecio();
         Double precioGranel = producto.getPrecioGranel();
+        String unidadMedida = producto.getUnidadMedida();
+        if(producto.getUnidadMedida().equals("docena")) {
+            precioGranel /= 12;
+            unidadMedida = "ud";
+        }
 
         return ProductoDto.builder()
                     .nombre(producto.getNombre())
                     .precio(precio)
-                    .precioGranel(precioGranel.doubleValue())
-                    .unidadMedida(producto.getUnidadMedida())
+                    .precioGranel(Math.floor(precioGranel.doubleValue() * 100) / 100)
+                    .unidadMedida(unidadMedida)
                     .tamanoUnidad(producto.getTamanoUnidad())
                     .prioridad(calculadorPrioridad.calcularSegunIndex(index))
                     .index(index)
                     .urlImagen(producto.getImagen())
                     .supermercado("CARREFOUR")
                     .build();
-
-
     }
 
 }
