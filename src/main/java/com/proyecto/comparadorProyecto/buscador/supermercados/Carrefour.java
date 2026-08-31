@@ -94,7 +94,7 @@ public class Carrefour implements Supermercado {
 
     public ProductoDto mapearProducto(Producto producto, int index) {
         double precio = producto.getPrecio();
-        Double precioGranel = producto.getPrecioGranel();
+        Double precioGranel = Double.valueOf(producto.getPrecioGranel().split(" ")[0].replace(',', '.'));
         String unidadMedida = producto.getUnidadMedida();
         if(producto.getUnidadMedida().equals("docena")) {
             precioGranel /= 12;

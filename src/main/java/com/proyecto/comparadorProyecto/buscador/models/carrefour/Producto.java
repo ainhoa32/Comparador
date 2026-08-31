@@ -17,6 +17,6 @@ public class Producto {
     private String unidadMedida;
     @JsonProperty("image_path")
     private String imagen;
-    @JsonProperty("list_price")
-    private Double precioGranel;
+    @JsonProperty("price_per_unit_text")
+    private String precioGranel;
 }
